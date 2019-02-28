@@ -14,7 +14,7 @@ sudo apt-get install miktex
 tex --version
 
 二、texstudio
-http://texstudio.sourceforge.net可下载deb包
+http://texstudio.sourceforge.net 可下载deb包
 安装后需要对option选项进行配置
 
 
