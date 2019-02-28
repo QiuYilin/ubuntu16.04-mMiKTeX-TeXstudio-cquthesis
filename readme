@@ -1,0 +1,40 @@
+参考网址：
+https://blog.csdn.net/DreamHome_S/article/details/77920303
+
+
+一、MiKTex
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys D6BC243565B2087BC3F897C9277A7293F59E4889
+
+echo "deb http://miktex.org/download/ubuntu xenial universe" | sudo tee /etc/apt/sources.list.d/miktex.list
+sudo apt-get update
+sudo apt-get install miktex
+打开MiKTeX Console
+选择私有
+检查：
+tex --version
+
+二、texstudio
+http://texstudio.sourceforge.net可下载deb包
+安装后需要对option选项进行配置
+
+
+三、重大模板预处理
+  - ls -lsa
+  - echo $(pwd)
+  - sudo chmod -R 777 .
+  # fandol强制采用linux type可更改
+  - sed -i 's/\[.*\]{cquthesis}%/[fontset=fandol, type=bachelor,]{cquthesis}%/' main.tex
+  # 提取宏包，在提取宏包时也有可能出现诡异的错误
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cls || true
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cls || true
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cls || true
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cls
+  # 预先编译三遍main.tex，因为MikTeX有可能会在下宏包时报诡异的错误
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis || true
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cleanall
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis || true
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cleanall
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make thesis || true
+  - docker run -it -v packages:/miktex/.miktex -v $(pwd):/miktex/work nanmu42/tex-package-test-bench make cleanall
+
+四、正常使用模板
